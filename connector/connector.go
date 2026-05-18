@@ -32,7 +32,7 @@ type Request struct {
 	// Messages is the conversation history.
 	Messages []Message `json:"messages"`
 	// MaxTokens limits the number of tokens in the response.
-	// Defaults to 1024 if not set.
+	// Defaults to 2048 if not set (increased from original 1024 for longer responses).
 	MaxTokens int `json:"max_tokens,omitempty"`
 	// Temperature controls the randomness of the output (0.0 - 2.0).
 	// A value of 0.7 is a reasonable default for most use cases.
@@ -91,7 +91,4 @@ type Delta struct {
 
 // Connector defines the interface that all AI provider connectors must implement.
 type Connector interface {
-	// Complete sends a completion request and returns the full response.
-	Complete(ctx context.Context, req *Request) (*Response, error)
-
-	// Stream sends
+	// Complete sends a completion request 
