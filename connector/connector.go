@@ -32,8 +32,10 @@ type Request struct {
 	// Messages is the conversation history.
 	Messages []Message `json:"messages"`
 	// MaxTokens limits the number of tokens in the response.
+	// Defaults to 1024 if not set.
 	MaxTokens int `json:"max_tokens,omitempty"`
 	// Temperature controls the randomness of the output (0.0 - 2.0).
+	// A value of 0.7 is a reasonable default for most use cases.
 	Temperature float64 `json:"temperature,omitempty"`
 	// Stream indicates whether to stream the response.
 	Stream bool `json:"stream,omitempty"`
@@ -69,15 +71,15 @@ type Usage struct {
 
 // StreamChunk represents a single chunk in a streaming response.
 type StreamChunk struct {
-	ID      string        `json:"id"`
-	Model   string        `json:"model"`
+	ID      string         `json:"id"`
+	Model   string         `json:"model"`
 	Choices []StreamChoice `json:"choices"`
 }
 
 // StreamChoice represents a single choice in a streaming chunk.
 type StreamChoice struct {
-	Index int    `json:"index"`
-	Delta Delta  `json:"delta"`
+	Index        int    `json:"index"`
+	Delta        Delta  `json:"delta"`
 	FinishReason string `json:"finish_reason"`
 }
 
@@ -92,13 +94,4 @@ type Connector interface {
 	// Complete sends a completion request and returns the full response.
 	Complete(ctx context.Context, req *Request) (*Response, error)
 
-	// Stream sends a completion request and streams the response chunks
-	// to the provided writer.
-	Stream(ctx context.Context, req *Request, w io.Writer) error
-
-	// Name returns the identifier of the provider (e.g., "openai", "anthropic").
-	Name() string
-
-	// ListModels returns the list of available models for this provider.
-	ListModels(ctx context.Context) ([]string, error)
-}
+	// Stream sends
