@@ -37,3 +37,6 @@ require (
 // Note: keeping go version pinned at 1.21 intentionally; upgrading to 1.22+
 // changes loop variable semantics which may affect range-based goroutine usage
 // in this codebase. Revisit before bumping.
+//
+// TODO: audit range-loop goroutine captures in pkg/hub before attempting 1.22
+// upgrade — at least two spots in hub.go close over the loop variable 'client'.
