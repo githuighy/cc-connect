@@ -40,3 +40,8 @@ require (
 //
 // TODO: audit range-loop goroutine captures in pkg/hub before attempting 1.22
 // upgrade — at least two spots in hub.go close over the loop variable 'client'.
+//
+// NOTE (personal): also worth checking whether the websocket read/write pumps
+// respect context cancellation properly — I noticed they only check the conn
+// error path and don't have a ctx.Done() case in the select. Low priority but
+// good to fix if this ever gets used in production.
