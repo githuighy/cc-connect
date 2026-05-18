@@ -34,3 +34,6 @@ require (
 
 // Personal fork of chenhg5/cc-connect for local experimentation.
 // Upstream: https://github.com/chenhg5/cc-connect
+// Note: keeping go version pinned at 1.21 intentionally; upgrading to 1.22+
+// changes loop variable semantics which may affect range-based goroutine usage
+// in this codebase. Revisit before bumping.
