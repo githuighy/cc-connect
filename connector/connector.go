@@ -39,6 +39,9 @@ type Request struct {
 	Temperature float64 `json:"temperature,omitempty"`
 	// Stream indicates whether to stream the response.
 	Stream bool `json:"stream,omitempty"`
+	// TopP controls nucleus sampling (0.0 - 1.0). Alternative to Temperature;
+	// generally only one of the two should be set at a time.
+	TopP float64 `json:"top_p,omitempty"`
 	// ExtraParams allows provider-specific parameters.
 	ExtraParams map[string]any `json:"extra_params,omitempty"`
 }
@@ -90,5 +93,4 @@ type Delta struct {
 }
 
 // Connector defines the interface that all AI provider connectors must implement.
-type Connector interface {
-	// Complete sends a completion request 
+type Connector 
